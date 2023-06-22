@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\icons\icon_courses.png" />
+    <None Remove="Resources\icons\icon_edit.png" />
+    <None Remove="Resources\icons\icon_favorites.png" />
+    <None Remove="Resources\icons\icon_image.png" />
+    <None Remove="Resources\icons\icon_image_person.png" />
+    <None Remove="Resources\icons\icon_loop.png" />
+    <None Remove="Resources\icons\icon_person.png" />
+    <None Remove="Resources\icons\icon_plus.png" />
+    <None Remove="Resources\icons\icon_price.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ApiClient\ApiClient.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\icons\icon_courses.png" />
+    <Resource Include="Resources\icons\icon_edit.png" />
+    <Resource Include="Resources\icons\icon_favorites.png" />
+    <Resource Include="Resources\icons\icon_image.png" />
+    <Resource Include="Resources\icons\icon_image_person.png" />
+    <Resource Include="Resources\icons\icon_loop.png" />
+    <Resource Include="Resources\icons\icon_person.png" />
+    <Resource Include="Resources\icons\icon_plus.png" />
+    <Resource Include="Resources\icons\icon_price.png" />
+  </ItemGroup>
+
+</Project>
