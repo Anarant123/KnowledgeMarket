@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace KnowledgeMarketDesktop.Views
 {
     /// <summary>
-    /// Логика взаимодействия для CoursePage.xaml
+    /// Логика взаимодействия для BuyPage.xaml
     /// </summary>
-    public partial class CoursePage : Page
+    public partial class BuyPage : Page
     {
-        public CoursePage()
+        public BuyPage()
         {
             InitializeComponent();
-        }
-
-        private void btnBuyCourse_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

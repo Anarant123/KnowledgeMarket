@@ -16,16 +16,21 @@ using System.Windows.Shapes;
 namespace KnowledgeMarketDesktop.Views
 {
     /// <summary>
-    /// Логика взаимодействия для CoursePage.xaml
+    /// Логика взаимодействия для MyCoursesPage.xaml
     /// </summary>
-    public partial class CoursePage : Page
+    public partial class MyCoursesPage : Page
     {
-        public CoursePage()
+        public MyCoursesPage()
         {
             InitializeComponent();
         }
 
-        private void btnBuyCourse_Click(object sender, RoutedEventArgs e)
+        private void lvCourses_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
         {
 
         }

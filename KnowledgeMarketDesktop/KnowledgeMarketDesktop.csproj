@@ -10,6 +10,7 @@
   <ItemGroup>
     <None Remove="Resources\icons\icon_courses.png" />
     <None Remove="Resources\icons\icon_edit.png" />
+    <None Remove="Resources\icons\icon_exit.png" />
     <None Remove="Resources\icons\icon_favorites.png" />
     <None Remove="Resources\icons\icon_image.png" />
     <None Remove="Resources\icons\icon_image_person.png" />
@@ -17,6 +18,14 @@
     <None Remove="Resources\icons\icon_person.png" />
     <None Remove="Resources\icons\icon_plus.png" />
     <None Remove="Resources\icons\icon_price.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\icons\icon_exit.png" />
   </ItemGroup>
 
   <ItemGroup>

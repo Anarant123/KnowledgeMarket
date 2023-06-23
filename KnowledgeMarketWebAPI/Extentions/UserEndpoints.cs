@@ -85,7 +85,7 @@ public static class UserEndpoints
             {
                 Login = model.Login.Trim(),
                 Password = model.Password,
-                Name = model.Name?.Trim(),
+                Name = model.Name.Trim(),
                 Email = model.Email.Trim(),
                 RoleId = (int?)RoleType.Normal,
             };
@@ -130,7 +130,7 @@ public static class UserEndpoints
             await context.SaveChangesAsync();
 
             return Results.Ok();
-        }).RequireAuthorization(Policies.Admin);
+        }).AllowAnonymous();
 
         return app;
     }

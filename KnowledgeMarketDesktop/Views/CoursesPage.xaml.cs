@@ -1,4 +1,8 @@
-﻿using System;
+﻿using AdBoards.ApiClient.Extensions;
+using ApiClient.Extensions;
+using KnowledgeMarketDesktop.Data;
+using KnowledgeMarketWebAPI.Data.Models.db;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,11 +27,22 @@ namespace KnowledgeMarketDesktop.Views
         public CoursesPage()
         {
             InitializeComponent();
+            //getAds();
+
         }
 
-        private void lvCourses_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void lvCourses_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            Context.CourseNow = new Course();
+            Context.CourseNow = await Context.Api.GetCourse((lvCourses.SelectedItem as Course).Id);
 
+            this.NavigationService.Navigate(new CoursePage());
+        }
+        private async void getAds()
+        {
+            Context.CourseList = new CourseListViewModel();
+            Context.CourseList.Courses = await Context.Api.GetCourses();
+            lvCourses.ItemsSource = Context.CourseList.Courses.ToList();
         }
     }
 }

@@ -11,10 +11,10 @@ public static class CoursesExtensions
 {
     public static async Task<List<Course>> GetCourses(this KnowledgeMarketApiClient apiClient)
     {
-        using var response = await apiClient.HttpClient.GetAsync("Courses/GetCourses");
-        var ads = await response.Content.ReadFromJsonAsync<List<Course>>();
+        using var response = await apiClient.HttpClient.GetAsync("Courses/Get—ources");
+        var courses = await response.Content.ReadFromJsonAsync<List<Course>>();
 
-        return ads!;
+        return courses!;
     }
 
     public static async Task<List<Course>> GetPurchasedCourse(this KnowledgeMarketApiClient apiClient)

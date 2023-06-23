@@ -33,7 +33,7 @@
                 Height="420"
                 VerticalAlignment="Top">
             <StackPanel HorizontalAlignment="Center">
-                <Image x:Name="imgAd"
+                <Image x:Name="imgCourse"
                        Source="\Resources\icons\icon_image.png" 
                        Width="330"
                        Height="330"/>
@@ -68,6 +68,9 @@
             <TextBox x:Name="tbPrice"
                      PreviewTextInput="tbPrice_PreviewTextInput"
                      Tag="Цена"/>
+            <Separator Opacity="0" Height="10"/>
+            <TextBox x:Name="tbLink"
+                     Tag="Ссылка на источник"/>
             <Separator Opacity="0" Height="10"/>
             <DockPanel>
                 <Button Content="Опубликовать"

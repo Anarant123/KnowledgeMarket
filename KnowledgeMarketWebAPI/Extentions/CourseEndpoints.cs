@@ -14,7 +14,7 @@ public static class CourseEndpoints
 {
     public static IEndpointRouteBuilder MapCourseEndpoints(this IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("Courses/").WithTags("Courses");
+        var group = app.MapGroup("Courses").WithTags("Courses");
 
         group.MapGet("GetCourse", async (int id, KnowledgeMarketContext context, ClaimsPrincipal user) =>
         {
@@ -54,7 +54,7 @@ public static class CourseEndpoints
 
 
             return Results.Ok(courses);
-        });
+        }).AllowAnonymous();
 
         group.MapPost("Addition", async (AddCourseModel model, KnowledgeMarketContext context, ClaimsPrincipal user,
             FileManager fileManager) =>
@@ -65,7 +65,10 @@ public static class CourseEndpoints
                 Price = model.Price,
                 Name = model.Name,
                 Description = model.Description,
-                Photo = await fileManager.SaveCoursePhoto(null)
+                Photo = await fileManager.SaveCoursePhoto(null),
+                UserId = model.UserId,
+                Link = model.Link,
+                Author = model.Author
             };
 
             context.Courses.Add(course);
@@ -113,7 +116,8 @@ public static class CourseEndpoints
             if (model.Name is not null) course.Name = model.Name;
             if (model.Description is not null) course.Description = model.Description;
             if (model.Author is not null) course.Author = model.Author;
-
+            if (model.Link is not null) course.Link = model.Link;
+ 
             try
             {
                 await context.SaveChangesAsync();
@@ -130,13 +134,13 @@ public static class CourseEndpoints
         group.MapDelete("Delete", async (int id, KnowledgeMarketContext context, ClaimsPrincipal user) =>
         {
             var userId = int.Parse(user.Claims.First(x => x.Type == "id").Value);
-            var res = Enum.TryParse(user.Claims.First(x => x.Type == "rightId").Value, out RoleType userRightId);
+            var res = Enum.TryParse(user.Claims.First(x => x.Type == "roleId").Value, out RoleType userRoleId);
             if (!res) return Results.BadRequest();
 
             var ad = await context.Courses.FindAsync(id);
             if (ad is null) return Results.NotFound();
 
-            if (userRightId != RoleType.Admin && userId != ad.UserId) return Results.Forbid();
+            if (userRoleId != RoleType.Admin && userId != ad.UserId) return Results.Forbid();
 
             ad.IsDeleted = true;
             await context.SaveChangesAsync();

@@ -7,7 +7,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 
-namespace AdBoards.ApiClient.Extensions;
+namespace ApiClient.Extensions;
 
 public static class UsersExtensions
 {

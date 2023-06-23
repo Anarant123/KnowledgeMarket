@@ -20,6 +20,7 @@ public class AddCourseModel
     public int? UserId { get; set; }
 
     public bool? IsDeleted { get; set; }
+    public string? Link { get; set; }
 
     [JsonIgnore] public IFormFile? PhotoFile { get; set; }
 }

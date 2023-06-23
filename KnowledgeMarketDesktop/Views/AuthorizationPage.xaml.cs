@@ -1,4 +1,4 @@
-﻿using AdBoards.ApiClient.Extensions;
+﻿using ApiClient.Extensions;
 using KnowledgeMarketDesktop.Data;
 using KnowledgeMarketWebAPI.Domain.Enums;
 using System;
@@ -70,29 +70,54 @@ namespace KnowledgeMarketDesktop.Views
                     Button btnAddCourse = FindVisualChild<Button>(window, "btnAddCourse");
                     if (btnAddCourse != null)
                         btnAddCourse.Visibility = Visibility.Visible;
+
+                    Button btnShowPurchasedCourses = FindVisualChild<Button>(window, "btnShowPurchasedCourses");
+                    if (btnShowPurchasedCourses != null)
+                        btnShowPurchasedCourses.Visibility = Visibility.Collapsed;
+
+                    TextBlock tbBtnExit = FindVisualChild<TextBlock>(window, "tbBtnExit");
+                    if (tbBtnExit != null)
+                        tbBtnExit.Text = "Выйти";
                 }
 
-                T FindVisualChild<T>(DependencyObject parent, string childName) where T : DependencyObject
+            }
+            else
+            {
+                Window window = Application.Current.MainWindow;
+                if (window != null)
                 {
-                    for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
-                    {
-                        var child = VisualTreeHelper.GetChild(parent, i);
-                        if (child is T typedChild && (child as FrameworkElement)?.Name == childName)
-                            return typedChild;
-                        else
-                        {
-                            var result = FindVisualChild<T>(child, childName);
-                            if (result != null)
-                                return result;
-                        }
-                    }
-                    return null;
-                }
+                    Button btnAddCourse = FindVisualChild<Button>(window, "btnAddCourse");
+                    if (btnAddCourse != null)
+                        btnAddCourse.Visibility = Visibility.Collapsed;
 
+                    Button btnShowPurchasedCourses = FindVisualChild<Button>(window, "btnShowPurchasedCourses");
+                    if (btnShowPurchasedCourses != null)
+                        btnShowPurchasedCourses.Visibility = Visibility.Visible;
+
+                    TextBlock tbBtnExit = FindVisualChild<TextBlock>(window, "tbBtnExit");
+                    if (tbBtnExit != null)
+                        tbBtnExit.Text = "Выйти";
+                }
             }
 
             this.NavigationService.Navigate(new CoursesPage());
             
+            T FindVisualChild<T>(DependencyObject parent, string childName) where T : DependencyObject
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+                {
+                    var child = VisualTreeHelper.GetChild(parent, i);
+                    if (child is T typedChild && (child as FrameworkElement)?.Name == childName)
+                        return typedChild;
+                    else
+                    {
+                        var result = FindVisualChild<T>(child, childName);
+                        if (result != null)
+                            return result;
+                    }
+                }
+                return null;
+            }
         }
     }
 }

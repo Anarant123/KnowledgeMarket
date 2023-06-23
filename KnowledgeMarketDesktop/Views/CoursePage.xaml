@@ -30,16 +30,23 @@
 
     <DockPanel LastChildFill="True"
                HorizontalAlignment="Center">
-        <Border DockPanel.Dock="Left"
-                VerticalAlignment="Top">
-            <StackPanel HorizontalAlignment="Center">
-                <Image x:Name="imgAd"
-                       Source="\Resources\icons\icon_image.png" 
-                       Width="330"
-                       Height="330"/>
-                
-            </StackPanel>
-        </Border>
+        <StackPanel>
+            <Border DockPanel.Dock="Left"
+                    VerticalAlignment="Top">
+                <StackPanel HorizontalAlignment="Center">
+                    <Image x:Name="imgAd"
+                           Source="\Resources\icons\icon_image.png" 
+                           Width="330"
+                           Height="330"/>
+                </StackPanel>
+            </Border>
+            <Button Content="Купить"
+                    x:Name="btnBuyCourse"
+                    Click="btnBuyCourse_Click"
+                    HorizontalAlignment="Center" Width="250"
+                    FontSize="25"/>
+        </StackPanel>
+        
         <StackPanel HorizontalAlignment="Left"
                         Margin="10 10 10 10" Width="700">
             <TextBox x:Name="tbName"
@@ -65,15 +72,12 @@
                      IsEnabled="False"/>
             <Separator Opacity="0" Height="10"/>
             <TextBox x:Name="tbPrice"
-                     PreviewTextInput="tbPrice_PreviewTextInput"
                      Tag="Цена"
                      IsEnabled="False"/>
             <Separator Opacity="0" Height="10"/>
             <TextBox x:Name="tbLink"
-                     PreviewTextInput="tbPrice_PreviewTextInput"
                      Tag="Ссылка на источник"
                      IsEnabled="False"/>
-            <Separator Opacity="0" Height="10"/>
         </StackPanel>
     </DockPanel>
 </Page>

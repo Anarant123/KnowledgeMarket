@@ -43,6 +43,7 @@ public partial class KnowledgeMarketContext : DbContext
             entity.Property(e => e.Description)
                 .HasMaxLength(2500)
                 .IsUnicode(false);
+            entity.Property(e => e.Link).IsUnicode(false);
             entity.Property(e => e.Name)
                 .HasMaxLength(32)
                 .IsUnicode(false);

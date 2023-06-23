@@ -14,6 +14,6 @@ namespace KnowledgeMarketDesktop.Data
         public static KnowledgeMarketApiClient Api = new KnowledgeMarketApiClient("http://localhost:5250/api/");
         public static AuthorizedModel? UserNow { get; set; }
         public static Course? CourseNow { get; set; }
-        public static CourseListViewModel? AdList { get; set; } = null;
+        public static CourseListViewModel? CourseList { get; set; } = null;
     }
 }

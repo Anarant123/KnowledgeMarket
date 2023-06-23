@@ -56,7 +56,7 @@ namespace KnowledgeMarketWebAPI
                 {
                     pb.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
                     pb.RequireAuthenticatedUser();
-                    pb.RequireClaim("rightId", RoleType.Admin.ToString());
+                    pb.RequireClaim("roleId", RoleType.Admin.ToString());
                 });
 
                 options.DefaultPolicy = options.GetPolicy(Policies.NormalUser)!;

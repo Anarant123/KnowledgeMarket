@@ -6,5 +6,6 @@ public record UpdateCourseModel
     string? Name,
     int? Price,
     string? Author,
-    string? Description
+    string? Description,
+    string? Link
 );

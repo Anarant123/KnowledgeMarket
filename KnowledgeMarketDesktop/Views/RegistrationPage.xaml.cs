@@ -1,4 +1,4 @@
-﻿using AdBoards.ApiClient.Extensions;
+﻿using ApiClient.Extensions;
 using KnowledgeMarketDesktop.Data;
 using KnowledgeMarketWebAPI.ApiClient.Contracts.Requests;
 using KnowledgeMarketWebAPI.Data.Models.db;
@@ -44,7 +44,10 @@ namespace KnowledgeMarketDesktop.Views
                 if (string.IsNullOrWhiteSpace(tbEmail.Text) || !IsValidEmail(tbEmail.Text))
                     result += "Введите корректный email.\n";
 
-                if (string.IsNullOrWhiteSpace(tbPassword1.Password) || string.IsNullOrWhiteSpace(tbPassword2.Password) || tbPassword1.Password.Length < 8)
+                if (tbPassword1.Password.Length < 8)
+                    result += "Пароль должен быть минимум 8 символов";
+
+                if (string.IsNullOrWhiteSpace(tbPassword1.Password) || string.IsNullOrWhiteSpace(tbPassword2.Password))
                     result += "Введите пароль в оба поля.";
                 else if (tbPassword1.Password != tbPassword2.Password)
                     result += "Пароли не совпадают.\n";
@@ -65,12 +68,13 @@ namespace KnowledgeMarketDesktop.Views
                 return;
             }
 
-            UserReg person = new UserReg();
-            person.Login = tbLogin.Text;
-            person.Email = tbEmail.Text;
-            person.Password = tbPassword1.Password;
+            UserReg user = new UserReg();
+            user.Name = tbName.Text;
+            user.Login = tbLogin.Text;
+            user.Email = tbEmail.Text;
+            user.Password = tbPassword1.Password;
 
-            var result = (await Context.Api.Registr(person)).ToList();
+            var result = (await Context.Api.Registr(user)).ToList();
 
             if (result.Count == 0)
             {

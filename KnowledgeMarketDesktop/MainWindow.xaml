@@ -49,10 +49,18 @@
             <Button x:Name="btnAddCourse"
                     Click="btnAddCourse_Click"
                     Margin="5"
-                    Visibility="Hidden">
+                    Visibility="Collapsed" Cursor="Hand">
                 <StackPanel>
                     <Image Source="\Resources\icons\icon_plus.png" Stretch="Uniform"/>
                     <TextBlock Text="Добавить курс" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="btnExit"
+                    Click="btnExit_Click"
+                    Margin="5">
+                <StackPanel>
+                    <Image Source="\Resources\icons\icon_exit.png" Stretch="Uniform"/>
+                    <TextBlock x:Name="tbBtnExit" Text="Выйти" TextWrapping="Wrap"/>
                 </StackPanel>
             </Button>
 
