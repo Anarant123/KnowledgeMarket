@@ -34,7 +34,7 @@ namespace KnowledgeMarketDesktop.Views
         {
             Context.CourseNow = new Course();
             Context.CourseNow = (lvCourses.SelectedItem as Course);
-            this.NavigationService.Navigate(new CoursePage());
+            this.NavigationService.Navigate(new CoursePage(true));
         }
 
         private async void getAds()

@@ -39,7 +39,7 @@ public static class CourseEndpoints
         {
             var courses = await context.Courses
                 .Include(x => x.User)
-                .Where(x => x.IsDeleted == false)
+                .Where(x => x.IsDeleted != true)
                 .ToListAsync();
             return Results.Ok(courses);
         }).AllowAnonymous();

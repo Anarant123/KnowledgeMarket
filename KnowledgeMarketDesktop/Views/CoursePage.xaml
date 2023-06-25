@@ -78,6 +78,7 @@
             <TextBox x:Name="tbLink"
                      Tag="Ссылка на источник"
                      IsEnabled="False"
+                     IsReadOnly="True"
                      Visibility="Collapsed"/>
         </StackPanel>
     </DockPanel>
