@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace KnowledgeMarketWebAPI.Data.Models.db;
 
@@ -23,6 +22,8 @@ public partial class Course
     public bool? IsDeleted { get; set; }
 
     public string? Link { get; set; }
-    [JsonIgnore]
+
+    public virtual ICollection<PurchasedСourse> PurchasedСourses { get; set; } = new List<PurchasedСourse>();
+
     public virtual User? User { get; set; }
 }

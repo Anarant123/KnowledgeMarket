@@ -15,6 +15,7 @@ public partial class Course
     public string? Description { get; set; }
 
     public string? Photo { get; set; }
+    public string? PhotoLink { get => "http://localhost:5250/" + this.Photo; }
 
     public int? UserId { get; set; }
 

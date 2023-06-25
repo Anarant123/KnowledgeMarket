@@ -39,6 +39,7 @@ public static class CourseEndpoints
         {
             var courses = await context.Courses
                 .Include(x => x.User)
+                .Where(x => x.IsDeleted == false)
                 .ToListAsync();
             return Results.Ok(courses);
         }).AllowAnonymous();
@@ -54,9 +55,9 @@ public static class CourseEndpoints
 
 
             return Results.Ok(courses);
-        }).AllowAnonymous();
+            }).AllowAnonymous();
 
-        group.MapPost("Addition", async (AddCourseModel model, KnowledgeMarketContext context, ClaimsPrincipal user,
+            group.MapPost("Addition", async (AddCourseModel model, KnowledgeMarketContext context, ClaimsPrincipal user,
             FileManager fileManager) =>
         {
             var userId = int.Parse(user.Claims.First(x => x.Type == "id").Value);
@@ -84,34 +85,58 @@ public static class CourseEndpoints
             }
 
             return Results.Ok(course);
-        }).RequireAuthorization(Policies.Admin);
+        }).AllowAnonymous();
+
+        group.MapPost("BuyCourse", async (int courseId, KnowledgeMarketContext context, ClaimsPrincipal user,
+            FileManager fileManager) =>
+        {
+            var userId = int.Parse(user.Claims.First(x => x.Type == "id").Value);
+            var purchasedCourse = new PurchasedСourse(userId, courseId);
+            var lastCourse = await context.PurchasedСourses.OrderByDescending(c => c.Id).FirstOrDefaultAsync();
+            purchasedCourse.Id = lastCourse.Id + 1;
+
+            context.PurchasedСourses.Add(purchasedCourse);
+
+            try
+            {
+                await context.SaveChangesAsync();
+            }
+            catch (DbUpdateException e)
+            {
+                Console.WriteLine(e);
+                return Results.Conflict();
+            }
+
+            return Results.Ok();
+        }).AllowAnonymous();
 
         group.MapPut("{id:int}/Photo", async (int id, IFormFile? photo, KnowledgeMarketContext context,
             FileManager fileManager, ClaimsPrincipal user) =>
         {
-            var userId = int.Parse(user.Claims.First(x => x.Type == "id").Value);
+            //var userId = int.Parse(user.Claims.First(x => x.Type == "id").Value);
             var course = await context.Courses
                 .FirstOrDefaultAsync(x => x.Id == id);
             if (course is null) return Results.NotFound();
 
-            if (course.UserId != userId) return Results.Forbid();
+            //if (course.UserId != userId) return Results.Forbid();
 
             course.Photo = await fileManager.SaveCoursePhoto(photo);
 
             await context.SaveChangesAsync();
 
             return Results.Ok(course);
-        }).RequireAuthorization(Policies.Admin);
+        }).AllowAnonymous();
 
         group.MapPut("Update", async (UpdateCourseModel model, KnowledgeMarketContext context, ClaimsPrincipal user) =>
         {
-            var userId = int.Parse(user.Claims.First(x => x.Type == "id").Value);
+            //var userId = int.Parse(user.Claims.First(x => x.Type == "id").Value);
             var course = await context.Courses
                 .FirstOrDefaultAsync(x => x.Id == model.Id);
             if (course is null) return Results.NotFound();
 
-            if (course.UserId != userId) return Results.Forbid();
+            //if (course.UserId != userId) return Results.Forbid();
 
+            course.Id = model.Id;
             if (model.Price is not null) course.Price = model.Price.Value;
             if (model.Name is not null) course.Name = model.Name;
             if (model.Description is not null) course.Description = model.Description;
@@ -129,24 +154,25 @@ public static class CourseEndpoints
             }
 
             return Results.Ok(course);
-        }).RequireAuthorization(Policies.Admin);
+        }).AllowAnonymous();
+        //.RequireAuthorization(Policies.Admin);
 
         group.MapDelete("Delete", async (int id, KnowledgeMarketContext context, ClaimsPrincipal user) =>
         {
-            var userId = int.Parse(user.Claims.First(x => x.Type == "id").Value);
-            var res = Enum.TryParse(user.Claims.First(x => x.Type == "roleId").Value, out RoleType userRoleId);
-            if (!res) return Results.BadRequest();
+            //var userId = int.Parse(user.Claims.First(x => x.Type == "id").Value);
+            //var res = Enum.TryParse(user.Claims.First(x => x.Type == "roleId").Value, out RoleType userRoleId);
+            //if (!res) return Results.BadRequest();
 
-            var ad = await context.Courses.FindAsync(id);
-            if (ad is null) return Results.NotFound();
+            var course = await context.Courses.FindAsync(id);
+            if (course is null) return Results.NotFound();
 
-            if (userRoleId != RoleType.Admin && userId != ad.UserId) return Results.Forbid();
+            //if (userRoleId != RoleType.Admin && userId != ad.UserId) return Results.Forbid();
 
-            ad.IsDeleted = true;
+            course.IsDeleted = true;
             await context.SaveChangesAsync();
 
             return Results.Ok();
-        }).RequireAuthorization(Policies.Admin);
+        }).AllowAnonymous();
 
         return app;
     }

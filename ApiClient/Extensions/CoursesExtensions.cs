@@ -17,7 +17,7 @@ public static class CoursesExtensions
         return courses!;
     }
 
-    public static async Task<List<Course>> GetPurchasedCourse(this KnowledgeMarketApiClient apiClient)
+    public static async Task<List<Course>> GetPurchasedCourses(this KnowledgeMarketApiClient apiClient)
     {
         using var response = await apiClient.HttpClient.GetAsync("Courses/GetPurchatedCourses");
         var ads = await response.Content.ReadFromJsonAsync<List<Course>>();
@@ -44,7 +44,16 @@ public static class CoursesExtensions
         return null;
     }
 
-    public static async Task<bool> DeleteAd(this KnowledgeMarketApiClient apiClient, int adId)
+    public static async Task<bool> BuyCourse(this KnowledgeMarketApiClient apiClient, int courseId)
+    {
+        using var response = await apiClient.HttpClient.PostAsync($"Courses/BuyCourse?courseId={courseId}", new StringContent(""));
+
+        if (response.IsSuccessStatusCode) return true;
+
+        return false;
+    }
+
+    public static async Task<bool> DeleteCourse(this KnowledgeMarketApiClient apiClient, int adId)
     {
         using var response = await apiClient.HttpClient.DeleteAsync($"Courses/Delete?id={adId}");
 
@@ -69,7 +78,7 @@ public static class CoursesExtensions
 
     public static async Task<Course?> UpdateCoursePhoto(this KnowledgeMarketApiClient apiClient, AddCourseModel model)
     {
-        if (model.Photo is null) return null;
+        if (model.PhotoFile is null) return null;
 
         var stream = model.PhotoFile.OpenReadStream();
         var multipart = new MultipartFormDataContent

@@ -1,5 +1,6 @@
 ﻿using KnowledgeMarketWebAPI.Data.Models.db;
 using System;
+using System.Text.Json.Serialization;
 
 namespace KnowledgeMarketWebAPI.Contracts.Responses
 {
@@ -20,7 +21,7 @@ namespace KnowledgeMarketWebAPI.Contracts.Responses
         public int? UserId { get; set; }
 
         public bool? IsDeleted { get; set; }
-
+        [JsonIgnore]
         public virtual User? User { get; set; }
         
         public bool IsPurchated { get; set; }

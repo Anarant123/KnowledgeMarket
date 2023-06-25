@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AdBoards.ApiClient.Extensions;
+using KnowledgeMarketDesktop.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,12 @@ namespace KnowledgeMarketDesktop.Views
         public BuyPage()
         {
             InitializeComponent();
+        }
+
+        private async void btnSentCardDetails_Click(object sender, RoutedEventArgs e)
+        {
+            await Context.Api.BuyCourse(Context.CourseNow.Id);
+            this.NavigationService.Navigate(new CoursePage(true));
         }
     }
 }

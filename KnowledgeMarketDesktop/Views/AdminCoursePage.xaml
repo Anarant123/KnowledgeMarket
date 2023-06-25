@@ -8,7 +8,92 @@
       HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
       Title="AdminCoursePage">
 
-    <Grid>
-        
-    </Grid>
+    <Page.Resources>
+        <Style TargetType="Border">
+            <Setter Property="Background"
+                    Value="White"/>
+            <Setter Property="Margin"
+                    Value="10 10 10 10"/>
+            <Setter Property="CornerRadius"
+                    Value="10"/>
+            <Setter Property="Padding"
+                    Value="20 20 20 20"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black"
+                                  ShadowDepth="1" 
+                                  Opacity="0.5"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <DockPanel LastChildFill="True"
+               HorizontalAlignment="Center">
+        <StackPanel>
+            <Border DockPanel.Dock="Left"
+                    VerticalAlignment="Top">
+                <StackPanel HorizontalAlignment="Center">
+                    <Image x:Name="imgCourse"
+                           Source="\Resources\icons\icon_image.png" 
+                           Width="330"
+                           Height="330"/>
+                </StackPanel>
+            </Border>
+            <Button Content="Установить фото"
+                    x:Name="btnSetPhoto"
+                    Click="btnSetPhoto_Click"
+                    HorizontalAlignment="Center" Width="250"
+                    FontSize="25"/>
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Left"
+                        Margin="10 10 10 10" Width="700">
+            <TextBox x:Name="tbName"
+                     Width="700"
+                     HorizontalAlignment="Left"
+                     Tag="Название"
+                     />
+            <Separator Opacity="0" Height="10"/>
+            <TextBox x:Name="tbDescription"
+                     AcceptsReturn="True"
+                     Width="700" Height="250"
+                     HorizontalAlignment="Left"
+                     TextWrapping="Wrap"
+                     VerticalContentAlignment="Top"
+                     Padding="15 5 15 5"
+                     TextAlignment="Justify"
+                     MaxLength="2500"
+                     Tag="Описание"
+                     />
+            <Separator Opacity="0" Height="10"/>
+            <TextBox x:Name="tbAuthor"
+                     Tag="Автор"
+                     />
+            <Separator Opacity="0" Height="10"/>
+            <TextBox x:Name="tbPrice"
+                     Tag="Цена"
+                     />
+            <Separator Opacity="0" Height="10"/>
+            <TextBox x:Name="tbLink"
+                     Tag="Ссылка на источник"/>
+            <Separator Opacity="0" Height="10"/>
+            <DockPanel LastChildFill="False">
+                <Button Content="Сохранить изменения"
+                        x:Name="btnSaveChanges"
+                        Click="btnSaveChanges_Click"
+                        HorizontalAlignment="Center"
+                        Width="300"
+                        FontSize="25"
+                        DockPanel.Dock="Left"/>
+                <Button Content="Удалить курс"
+                        x:Name="btnDelete"
+                        Click="btnDelete_Click"
+                        HorizontalAlignment="Center"
+                        Width="300"
+                        FontSize="25"
+                        DockPanel.Dock="Right"/>
+            </DockPanel>
+        </StackPanel> 
+    </DockPanel>
 </Page>

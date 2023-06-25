@@ -43,7 +43,7 @@ public static class UsersExtensions
     }
 
     public static async Task<Result<User, IEnumerable<Error>>> PersonUpdate(this KnowledgeMarketApiClient api,
-        EditCourseModel person)
+        AddCourseModel person)
     {
         using var jsonContent = new StringContent(JsonSerializer.Serialize(person), Encoding.UTF8, "application/json");
         using var response = await api.HttpClient.PutAsync("User/Update", jsonContent);

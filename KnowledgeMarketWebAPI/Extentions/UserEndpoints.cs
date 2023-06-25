@@ -130,7 +130,7 @@ public static class UserEndpoints
             await context.SaveChangesAsync();
 
             return Results.Ok();
-        }).AllowAnonymous();
+        }).RequireAuthorization(Policies.Admin);
 
         return app;
     }

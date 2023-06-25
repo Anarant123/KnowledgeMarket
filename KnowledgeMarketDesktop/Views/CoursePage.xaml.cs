@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KnowledgeMarketDesktop.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,11 +24,30 @@ namespace KnowledgeMarketDesktop.Views
         public CoursePage()
         {
             InitializeComponent();
+            tbName.Text = Context.CourseNow.Name;
+            tbDescription.Text = Context.CourseNow.Description;
+            tbAuthor.Text = Context.CourseNow.Author;
+            tbLink.Text = Context.CourseNow.Link;
+            tbPrice.Text = Context.CourseNow.Price.ToString();
+            imgCourse.Source = new BitmapImage(new Uri(Context.CourseNow.PhotoLink));
+        }
+
+        public CoursePage(bool isPurchated)
+        {
+            InitializeComponent();
+            tbName.Text = Context.CourseNow.Name;
+            tbDescription.Text = Context.CourseNow.Description;
+            tbAuthor.Text = Context.CourseNow.Author;
+            tbLink.Text = Context.CourseNow.Link;
+            tbPrice.Text = Context.CourseNow.Price.ToString();
+            imgCourse.Source = new BitmapImage(new Uri(Context.CourseNow.PhotoLink));
+            tbLink.Visibility = Visibility.Visible;
+            btnBuyCourse.Visibility = Visibility.Collapsed;
         }
 
         private void btnBuyCourse_Click(object sender, RoutedEventArgs e)
         {
-
+            this.NavigationService.Navigate(new BuyPage());
         }
     }
 }

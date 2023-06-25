@@ -9,6 +9,48 @@
       Title="BuyPage">
 
     <Grid>
-        
+        <StackPanel VerticalAlignment="Center">
+            <Border Width="300"
+                Height="200"
+                BorderBrush="#333333"
+                BorderThickness="1"
+                CornerRadius="5"
+                Padding="3">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBox x:Name="tbCardNumber" 
+                             MaxLength="16" 
+                             Tag="Номер карты"/>    
+                    <Separator Opacity="0" Height="15"/>
+                    <TextBox x:Name="tbCardHolderName" 
+                             Tag="Имя владельца"/>
+                    <Separator Opacity="0" Height="10"/>
+                    <TextBlock Text="Срок действия:"
+                               FontSize="18"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox x:Name="tbExpirationMonth" 
+                                 Width="70" MaxLength="2" 
+                                 TextAlignment="Center"
+                                 Tag="Месяц"/>
+                        <TextBlock Text="/"
+                                   FontSize="18"
+                                   Margin="5 0 5 0"/>
+                        <TextBox x:Name="tbExpirationYear" 
+                                 Width="70" MaxLength="4" 
+                                 TextAlignment="Center"
+                                 Tag="Год"/>
+                        <Separator Opacity="0" Width="50"/>
+                        <TextBox x:Name="tbCVC"
+                                 Width="70" MaxLength="3" 
+                                 TextAlignment="Center"
+                                 Tag="CVC"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            <Separator Opacity="0" Height="15"/>
+            <Button x:Name="btnSentCardDetails"
+                    Content="Отправить"
+                    Width="300"
+                    Click="btnSentCardDetails_Click"/>
+        </StackPanel>
     </Grid>
 </Page>

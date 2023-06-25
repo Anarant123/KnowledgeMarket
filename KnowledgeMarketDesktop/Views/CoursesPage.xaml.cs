@@ -2,6 +2,7 @@
 using ApiClient.Extensions;
 using KnowledgeMarketDesktop.Data;
 using KnowledgeMarketWebAPI.Data.Models.db;
+using KnowledgeMarketWebAPI.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,22 +28,43 @@ namespace KnowledgeMarketDesktop.Views
         public CoursesPage()
         {
             InitializeComponent();
-            //getAds();
-
+            getAds();
         }
 
-        private async void lvCourses_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void lvCourses_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Context.CourseNow = new Course();
-            Context.CourseNow = await Context.Api.GetCourse((lvCourses.SelectedItem as Course).Id);
+            Context.CourseNow = (lvCourses.SelectedItem as Course);
 
-            this.NavigationService.Navigate(new CoursePage());
+            if (Context.UserNow == null || Context.UserNow.User.RoleId == (int?)RoleType.Normal)
+            {
+                this.NavigationService.Navigate(new CoursePage());
+                return;
+            }
+
+            this.NavigationService.Navigate(new AdminCoursePage());
         }
         private async void getAds()
         {
             Context.CourseList = new CourseListViewModel();
             Context.CourseList.Courses = await Context.Api.GetCourses();
             lvCourses.ItemsSource = Context.CourseList.Courses.ToList();
+        }
+
+        private async void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (string.IsNullOrEmpty(tbSearch.Text))
+                {
+                    Context.CourseList.Courses = await Context.Api.GetCourses();
+                    lvCourses.ItemsSource = Context.CourseList.Courses.ToList();
+                    return;
+                }
+
+                Context.CourseList.Courses = (await Context.Api.GetCourses()).Where(x => x.Name.Contains(tbSearch.Text)).ToList(); ;
+                lvCourses.ItemsSource = Context.CourseList.Courses.ToList();
+            }
         }
     }
 }

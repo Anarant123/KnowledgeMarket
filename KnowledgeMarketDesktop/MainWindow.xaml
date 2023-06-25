@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KnowledgeMarketDesktop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1400">
+        Title="KnowledgeMarket" Height="800" Width="1400">
     <Window.Resources>
         <Style TargetType="StackPanel">
             <Setter Property="Height" Value="100"/>

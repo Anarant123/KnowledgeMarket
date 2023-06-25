@@ -58,16 +58,20 @@ public partial class KnowledgeMarketContext : DbContext
 
         modelBuilder.Entity<PurchasedСourse>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("Purchased_Сourses");
+            entity.ToTable("Purchased_Сourses");
 
-            entity.HasOne(d => d.Course).WithMany()
+            entity.Property(e => e.Id)
+                .ValueGeneratedNever()
+                .HasColumnName("id");
+
+            entity.HasOne(d => d.Course).WithMany(p => p.PurchasedСourses)
                 .HasForeignKey(d => d.CourseId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Purchased__Cours__33D4B598");
 
-            entity.HasOne(d => d.User).WithMany()
+            entity.HasOne(d => d.User).WithMany(p => p.PurchasedСourses)
                 .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Purchased__UserI__32E0915F");
         });
 

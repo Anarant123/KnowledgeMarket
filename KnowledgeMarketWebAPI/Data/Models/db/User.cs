@@ -19,6 +19,8 @@ public partial class User
     public int? RoleId { get; set; }
     [JsonIgnore]
     public virtual ICollection<Course> Courses { get; set; } = new List<Course>();
+    [JsonIgnore]
+    public virtual ICollection<PurchasedСourse> PurchasedСourses { get; set; } = new List<PurchasedСourse>();
 
     public virtual Role? Role { get; set; }
 }

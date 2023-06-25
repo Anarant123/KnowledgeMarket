@@ -36,7 +36,7 @@ namespace KnowledgeMarketDesktop.Views
 
         private void btnToBackFrame_Click(object sender, RoutedEventArgs e)
         {
-
+            this.NavigationService.Navigate(new CoursesPage());
         }
 
         private async void btnAddCourse_Click(object sender, RoutedEventArgs e)
@@ -77,7 +77,7 @@ namespace KnowledgeMarketDesktop.Views
 
             Context.CourseNow = await Context.Api.AddCourse(course);
             course.Id = Context.CourseNow.Id;
-            if (course.Photo != null)
+            if (course.PhotoFile != null)
                 Context.CourseNow = await Context.Api.UpdateCoursePhoto(course);
 
             if (Context.CourseNow == null)
